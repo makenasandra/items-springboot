@@ -1,6 +1,8 @@
 package com.example.itemsspringbootapp.controllers;
 
 import com.example.itemsspringbootapp.models.Item;
+import com.example.itemsspringbootapp.service.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,21 +13,18 @@ import java.util.Map;
 @RestController
 @RequestMapping("/items")
 public class ItemController {
-
-    private Map<Integer, Item> itemMap = new HashMap<>();
-
-    private int nextItemId = 1;
+    @Autowired
+    ItemService itemService;
 
     @PostMapping
     public ResponseEntity<Item> createItem(@RequestBody Item item){
-        itemMap.put(nextItemId, item);
-        nextItemId++;
-        return ResponseEntity.status(HttpStatus.CREATED).body(item);
+       Item createdItem = itemService.createItem(item);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdItem);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Item> getItem(@PathVariable("id") int itemId){
-        Item item = itemMap.get(itemId);
+        Item item = itemService.getItem(itemId);
         if(item != null){
             return ResponseEntity.ok(item);
         } else{
@@ -36,19 +35,16 @@ public class ItemController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateItem(@PathVariable("id") int itemId, @RequestBody Item item){
 
-        if (itemMap.get(itemId) == null){
-            return ResponseEntity.notFound().build();
-        }
-        itemMap.replace(itemId, item);
-        return ResponseEntity.ok("Item updated successfully: " + itemMap.get(itemId));
+        Item updatedItem = itemService.updateItem(item, itemId);
+        return ResponseEntity.ok("Item updated successfully: " + updatedItem);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Item> deleteItem (@PathVariable("id") int itemId){
-        Item item = itemMap.get(itemId);
-        if(item != null) {
-            itemMap.remove(itemId);
-            return ResponseEntity.ok(item);
+        Item deletedItem = itemService.deleteItem(itemId);
+
+        if(deletedItem != null) {
+            return ResponseEntity.ok(deletedItem);
         } else {
             return ResponseEntity.notFound().build();
         }
