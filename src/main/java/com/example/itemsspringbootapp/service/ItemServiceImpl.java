@@ -1,6 +1,8 @@
 package com.example.itemsspringbootapp.service;
 
 import com.example.itemsspringbootapp.models.Item;
+import com.example.itemsspringbootapp.repository.ItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -8,10 +10,13 @@ import java.util.HashMap;
 import java.util.Map;
 @Service
 public class ItemServiceImpl implements ItemService{
+    @Autowired
+    ItemRepository itemRepository;
     private Map<Integer, Item> itemMap = new HashMap<>();
     @Override
     public Item createItem(Item item) {
         itemMap.put(item.getId(), item);
+        itemRepository.save(item);
         return item;
     }
 
