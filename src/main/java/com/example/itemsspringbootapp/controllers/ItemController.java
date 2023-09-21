@@ -2,6 +2,7 @@ package com.example.itemsspringbootapp.controllers;
 
 import com.example.itemsspringbootapp.models.Item;
 import com.example.itemsspringbootapp.service.ItemService;
+import com.example.itemsspringbootapp.service.ItemServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,11 @@ import java.util.Map;
 @RestController
 @RequestMapping("/items")
 public class ItemController {
+    ItemServiceImpl itemService;
     @Autowired
-    ItemService itemService;
+    public ItemController(ItemServiceImpl itemService){
+        this.itemService = itemService;
+    }
 
     @PostMapping
     public ResponseEntity<Item> createItem(@RequestBody Item item){

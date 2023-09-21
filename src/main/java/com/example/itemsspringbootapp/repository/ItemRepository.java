@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
     //provides you with the CRUD methods
+    Item getItemById(int id);
 }

@@ -3,6 +3,9 @@ package com.example.itemsspringbootapp.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;
+
+import java.sql.Timestamp;
+
 @Entity
 @Data
 public class Item {
@@ -10,5 +13,8 @@ public class Item {
     private int id;
     private String name;
     private String status;
-    Item(){};
+    private String description;
+    private Timestamp createdOn;
+
+    public Item(){};
 }
