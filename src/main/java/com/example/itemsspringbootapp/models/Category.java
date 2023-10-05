@@ -18,6 +18,8 @@ public class Category {
     private Long updated_by;
     private Timestamp updated_on;
 
+//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
+//    List<Item> itemList;
     public Category(){}
 
 }

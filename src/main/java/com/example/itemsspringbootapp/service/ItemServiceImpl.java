@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -79,4 +80,18 @@ public class ItemServiceImpl implements ItemService{
         categoryRepository.save(category);
         return category;
     }
+
+    @Override
+    public List<Item> getAllItemsWithCategories() {
+        List<Item> itemList = itemRepository.findAll();
+        List<Item> listWithCategories = new ArrayList<>();
+        for (Item item:
+             itemList) {
+            if(item.getCategory().getName() != null){
+                listWithCategories.add(item);
+            }
+        }
+        return listWithCategories;
+    }
+
 }

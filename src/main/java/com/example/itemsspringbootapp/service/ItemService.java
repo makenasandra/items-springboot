@@ -15,4 +15,6 @@ public interface ItemService {
     List<Category> getAllCategories();
 
     Category createCategory(Category category);
+
+    List<Item> getAllItemsWithCategories();
 }

@@ -65,4 +65,13 @@ public class ItemController {
     public Category createCategory(Category category){
         return itemService.createCategory(category);
     }
+
+    @GetMapping("/categories/item-list")
+    public List<Item> getItemsByCategoryId(@RequestParam(name = "id", required = false) Long id){
+        if(id != null){
+            return itemService.getItemsByCategoryId(id);
+        }else {
+           return itemService.getAllItemsWithCategories();
+        }
+    }
 }
