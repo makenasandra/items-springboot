@@ -1,7 +1,6 @@
 package com.example.itemsspringbootapp.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -16,5 +15,8 @@ public class Item {
     private String description;
     private Timestamp createdOn;
 
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private Category category;
     public Item(){};
 }

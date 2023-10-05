@@ -1,5 +1,6 @@
 package com.example.itemsspringbootapp.controllers;
 
+import com.example.itemsspringbootapp.models.Category;
 import com.example.itemsspringbootapp.models.Item;
 import com.example.itemsspringbootapp.service.ItemService;
 import com.example.itemsspringbootapp.service.ItemServiceImpl;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -54,4 +56,13 @@ public class ItemController {
         }
     }
 
+    @GetMapping("/categories")
+    public List<Category> getAllCategories(){
+        return itemService.getAllCategories();
+    }
+
+    @PostMapping("/categories")
+    public Category createCategory(Category category){
+        return itemService.createCategory(category);
+    }
 }

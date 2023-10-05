@@ -1,18 +1,29 @@
 package com.example.itemsspringbootapp.service;
 
+import com.example.itemsspringbootapp.models.Category;
 import com.example.itemsspringbootapp.models.Item;
+import com.example.itemsspringbootapp.repository.CategoryRepository;
 import com.example.itemsspringbootapp.repository.ItemRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService{
-    @Autowired
+
     ItemRepository itemRepository;
+
+    CategoryRepository categoryRepository;
+    @Autowired
+    public ItemServiceImpl (ItemRepository itemRepository, CategoryRepository categoryRepository){
+        this.itemRepository = itemRepository;
+        this.categoryRepository = categoryRepository;
+    }
     @Override
     public Item createItem(Item item) {
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -51,5 +62,21 @@ public class ItemServiceImpl implements ItemService{
         } else {
             return null;
         }
+    }
+
+    @Override
+    public List<Item> getItemsByCategoryId(Long categoryId) {
+        return itemRepository.findByCategoryId(categoryId);
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
+
+    @Override
+    public Category createCategory(Category category) {
+        categoryRepository.save(category);
+        return category;
     }
 }
