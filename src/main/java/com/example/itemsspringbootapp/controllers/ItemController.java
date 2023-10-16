@@ -2,8 +2,10 @@ package com.example.itemsspringbootapp.controllers;
 
 import com.example.itemsspringbootapp.models.Category;
 import com.example.itemsspringbootapp.models.Item;
-import com.example.itemsspringbootapp.service.ItemService;
+
 import com.example.itemsspringbootapp.service.ItemServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/items")
+@Tag(name = "Item API", description = "Perform CRUD operations on Item")
 public class ItemController {
     ItemServiceImpl itemService;
     @Autowired
@@ -56,15 +59,6 @@ public class ItemController {
         }
     }
 
-    @GetMapping("/categories")
-    public List<Category> getAllCategories(){
-        return itemService.getAllCategories();
-    }
-
-    @PostMapping("/categories")
-    public Category createCategory(Category category){
-        return itemService.createCategory(category);
-    }
 
     @GetMapping("/categories/item-list")
     public List<Item> getItemsByCategoryId(@RequestParam(name = "id", required = false) Long id){
@@ -72,6 +66,18 @@ public class ItemController {
             return itemService.getItemsByCategoryId(id);
         }else {
            return itemService.getAllItemsWithCategories();
+        }
+    }
+
+    @GetMapping("/items-by-tag")
+    @Operation(summary = "Retrieve all items associated with a specific tag. Accepts the tag's name as a parameter and returns a list of items associated with that tag.")
+    public ResponseEntity<List<Item>> getItemsByTagName(@RequestParam(name = "tagName") String tagName){
+        List<Item> itemList = itemService.getItemsByTagName(tagName);
+
+        if(itemList.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } else {
+            return ResponseEntity.ok(itemList);
         }
     }
 }

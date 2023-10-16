@@ -2,8 +2,10 @@ package com.example.itemsspringbootapp.service;
 
 import com.example.itemsspringbootapp.models.Category;
 import com.example.itemsspringbootapp.models.Item;
+import com.example.itemsspringbootapp.models.Tag;
 import com.example.itemsspringbootapp.repository.CategoryRepository;
 import com.example.itemsspringbootapp.repository.ItemRepository;
+import com.example.itemsspringbootapp.repository.TagRepository;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class ItemServiceImpl implements ItemService{
     ItemRepository itemRepository;
 
     CategoryRepository categoryRepository;
+
+    @Autowired
+    TagRepository tagRepository;
     @Autowired
     public ItemServiceImpl (ItemRepository itemRepository, CategoryRepository categoryRepository){
         this.itemRepository = itemRepository;
@@ -67,18 +72,7 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public List<Item> getItemsByCategoryId(Long categoryId) {
-        return itemRepository.findByCategoryId(categoryId);
-    }
-
-    @Override
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
-    }
-
-    @Override
-    public Category createCategory(Category category) {
-        categoryRepository.save(category);
-        return category;
+        return itemRepository.getByCategoryId(categoryId);
     }
 
     @Override
@@ -92,6 +86,18 @@ public class ItemServiceImpl implements ItemService{
             }
         }
         return listWithCategories;
+    }
+
+    @Override
+    public List<Item> getItemsByTagName(String tagName) {
+        Tag tag = tagRepository.getTagByName(tagName);
+//        if(tag != null) {
+//            Long tagId = tag.getId();
+//            return itemRepository.findAllByTagId(tagId);
+//        } else{
+//            return null;
+//        }
+        return null;
     }
 
 }

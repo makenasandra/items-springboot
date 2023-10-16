@@ -12,9 +12,8 @@ public interface ItemService {
     Item deleteItem(int itemId);
 
     List<Item> getItemsByCategoryId(Long categoryId);
-    List<Category> getAllCategories();
-
-    Category createCategory(Category category);
 
     List<Item> getAllItemsWithCategories();
+
+    List<Item> getItemsByTagName(String tagName);
 }

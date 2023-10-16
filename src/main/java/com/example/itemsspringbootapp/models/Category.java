@@ -1,5 +1,6 @@
 package com.example.itemsspringbootapp.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,13 +14,13 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    private Long created_by;
-    private Timestamp created_on;
-    private Long updated_by;
-    private Timestamp updated_on;
+//    private Long created_by;
+//    private Timestamp created_on;
+//    private Long updated_by;
+//    private Timestamp updated_on;
 
-//    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY )
-//    List<Item> itemList;
+
     public Category(){}
+
 
 }

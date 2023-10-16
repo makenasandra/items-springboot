@@ -12,4 +12,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     //provides you with the CRUD methods
     Item getItemById(int id);
     List<Item> findByCategoryId(Long categoryId);
+    List<Item> getByCategoryId(Long categoryId);
+
+
+//    List<Item> findAllByTagId(Long tagId);
 }
