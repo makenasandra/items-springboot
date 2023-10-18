@@ -91,13 +91,13 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public List<Item> getItemsByTagName(String tagName) {
         Tag tag = tagRepository.getTagByName(tagName);
-//        if(tag != null) {
-//            Long tagId = tag.getId();
+        if(tag != null) {
+            Long tagId = tag.getId();
 //            return itemRepository.findAllByTagId(tagId);
-//        } else{
-//            return null;
-//        }
-        return null;
+            return null;
+        } else{
+            return null;
+        }
     }
 
 }

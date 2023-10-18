@@ -26,12 +26,14 @@ public class ItemController {
     }
 
     @PostMapping
+    @Operation(summary = "Create an item", method = "POST")
     public ResponseEntity<Item> createItem(@RequestBody Item item){
        Item createdItem = itemService.createItem(item);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdItem);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get an item by id", method = "GET")
     public ResponseEntity<Item> getItem(@PathVariable("id") int itemId){
         Item item = itemService.getItem(itemId);
         if(item != null){
@@ -42,6 +44,7 @@ public class ItemController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update an item by id", method = "GET")
     public ResponseEntity<?> updateItem(@PathVariable("id") int itemId, @RequestBody Item item){
 
         Item updatedItem = itemService.updateItem(item, itemId);
@@ -49,6 +52,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete an item by id", method = "GET")
     public ResponseEntity<Item> deleteItem (@PathVariable("id") int itemId){
         Item deletedItem = itemService.deleteItem(itemId);
 
@@ -61,6 +65,7 @@ public class ItemController {
 
 
     @GetMapping("/categories/item-list")
+    @Operation(summary = "Get items by category id", method = "GET")
     public List<Item> getItemsByCategoryId(@RequestParam(name = "id", required = false) Long id){
         if(id != null){
             return itemService.getItemsByCategoryId(id);
